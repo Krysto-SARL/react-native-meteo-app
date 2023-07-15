@@ -12,6 +12,7 @@ import MeteoBasic from '../../components/MeteoBasic/MeteoBasic'
 import { getWeatherInterpretation } from '../../services/meteo-services'
 import MeteoAdvanced from '../../components/MeteoAdvanced/MeteoAdvanced'
 import {useNavigation} from "@react-navigation/native"
+import SearchBar from '../../components/SearchBar/SearchBar'
 
 
 
@@ -72,7 +73,7 @@ export default function Home() {
         />
       </View>
       <View style={s.searchBar_container}>
-        <Txt>SearchBar</Txt>
+        <SearchBar/>
       </View>
       <View style={s.meteo_advanced}>
        <MeteoAdvanced wind={currentWeather.windspeed} dusk={weather.daily.sunrise[0].split("T")[1]} dawn={weather.daily.sunset[0].split("T")[1]}/>

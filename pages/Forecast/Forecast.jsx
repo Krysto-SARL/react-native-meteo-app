@@ -25,22 +25,31 @@ export default function Forecast() {
     </View>
   )
 
-  const  forecastList = (
+  const forecastList = (
     <View style={s.forecastList}>
- {params.time.map((time, index) => {
-    const code = params.weathercode[index]
-    const image = getWeatherInterpretation(code).image
-    const date = new Date(time)
-    const day = DAYS[date.getDay()]
-    const temperature = params.temperature_2m_max[index]
+      {params.time.map((time, index) => {
+        const code = params.weathercode[index]
+        const image = getWeatherInterpretation(code).image
+        const date = new Date(time)
+        const day = DAYS[date.getDay()]
+        const temperature = params.temperature_2m_max[index]
 
-    return <ForecastListItem key={time} image={image} day={day} date={dateToDDMM(date)} temperature={temperature.toFixed(0)}/>
- })}
+        return (
+          <ForecastListItem
+            key={time}
+            image={image}
+            day={day}
+            date={dateToDDMM(date)}
+            temperature={temperature.toFixed(0)}
+          />
+        )
+      })}
     </View>
   )
-  return <>
-  {header}
-  {forecastList}
-  
-  </>
+  return (
+    <>
+      {header}
+      {forecastList}
+    </>
+  )
 }
