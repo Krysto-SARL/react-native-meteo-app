@@ -1,7 +1,7 @@
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { s } from './App.style'
 import Home from './pages/Home/Home'
-import { ImageBackground, SafeAreaView } from 'react-native'
+import { ImageBackground } from 'react-native'
 import BackgroundImg from './assets/background.png'
 
 export default function App() {

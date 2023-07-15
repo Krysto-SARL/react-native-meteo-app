@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 const s = StyleSheet.create({
   meteo_basic: {
     flex: 2,
+    color: 'white',
   },
   searchBar_container: {
     flex: 2,
