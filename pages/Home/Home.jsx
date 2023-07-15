@@ -6,27 +6,48 @@ import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
 } from 'expo-location'
+import { meteoAPI  } from '../../api/meteo'
+
 
 export default function Home() {
-    const [coords, setCoords] = useState()
+  const [coords, setCoords] = useState()
+  const [weather , setWeather] = useState()
+ 
+  
 
-    useEffect(() => {
+  useEffect(() => {
     getUserCoords()
-      }, []);
+  }, [])
+
+  useEffect(() => {
+    if (coords) {
+      fetchWeather(coords)
+
+    }
+  }, [coords])
 
   async function getUserCoords() {
     let { status } = await requestForegroundPermissionsAsync()
     if (status === 'granted') {
       const location = await getCurrentPositionAsync()
-      
-      setCoords({ lat: location.coords.latitude , lng: location.coords.longitude  })
+
+      setCoords({
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      })
     } else {
       setCoords({ lat: '-22.27', lng: '166.45' })
     }
   }
 
-  
-console.log(coords);
+  async function fetchWeather(coordinates) {
+    const weatherResponse =  await meteoAPI.fetchWeatherFromCoords(coordinates)
+    setWeather(weatherResponse)
+  }
+
+  console.log(weather);
+
+ 
   return (
     <>
       <View style={s.meteo_basic}>
