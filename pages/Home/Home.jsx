@@ -9,10 +9,12 @@ import {
 import { meteoAPI } from '../../api/meteo'
 import Txt from '../../components/Txt/Txt'
 import MeteoBasic from '../../components/MeteoBasic/MeteoBasic'
+import { getWeatherInterpretation } from '../../services/meteo-services'
 
 export default function Home() {
   const [coords, setCoords] = useState()
   const [weather, setWeather] = useState()
+  const currentWeather = weather?.current_weather
 
   useEffect(() => {
     getUserCoords()
@@ -46,9 +48,10 @@ export default function Home() {
   console.log(weather)
 
   return (
+    currentWeather ?
     <>
       <View style={s.meteo_basic}>
-       <MeteoBasic/>
+        <MeteoBasic interpretation={getWeatherInterpretation(currentWeather.weathercode)} city={"Nouméa"} temperature={Math.round(currentWeather?.temperature)} />
       </View>
       <View style={s.searchBar_container}>
         <Txt>SearchBar</Txt>
@@ -56,6 +59,6 @@ export default function Home() {
       <View style={s.meteo_advanced}>
         <Txt>meteo advanced</Txt>
       </View>
-    </>
+    </> : null
   )
 }
