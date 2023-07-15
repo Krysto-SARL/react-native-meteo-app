@@ -6,15 +6,13 @@ import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
 } from 'expo-location'
-import { meteoAPI  } from '../../api/meteo'
+import { meteoAPI } from '../../api/meteo'
 import Txt from '../../components/Txt/Txt'
-
+import MeteoBasic from '../../components/MeteoBasic/MeteoBasic'
 
 export default function Home() {
   const [coords, setCoords] = useState()
-  const [weather , setWeather] = useState()
- 
-  
+  const [weather, setWeather] = useState()
 
   useEffect(() => {
     getUserCoords()
@@ -23,7 +21,6 @@ export default function Home() {
   useEffect(() => {
     if (coords) {
       fetchWeather(coords)
-
     }
   }, [coords])
 
@@ -42,23 +39,22 @@ export default function Home() {
   }
 
   async function fetchWeather(coordinates) {
-    const weatherResponse =  await meteoAPI.fetchWeatherFromCoords(coordinates)
+    const weatherResponse = await meteoAPI.fetchWeatherFromCoords(coordinates)
     setWeather(weatherResponse)
   }
 
-  console.log(weather);
+  console.log(weather)
 
- 
   return (
     <>
       <View style={s.meteo_basic}>
-        <Txt style={{fontSize: 60 }}>Home</Txt>
+       <MeteoBasic/>
       </View>
       <View style={s.searchBar_container}>
-        <Text>SearchBar</Text>
+        <Txt>SearchBar</Txt>
       </View>
       <View style={s.meteo_advanced}>
-        <Text>meteo advanced</Text>
+        <Txt>meteo advanced</Txt>
       </View>
     </>
   )

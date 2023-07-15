@@ -11,17 +11,19 @@ export default function App() {
     'Alata-regular': AlataRegular,
   })
 
-  return (
-    <ImageBackground
-      source={BackgroundImg}
-      style={s.img_background}
-      imageStyle={s.img}
-    >
-      <SafeAreaProvider>
-        <SafeAreaView style={s.appContainer}>
-          {isFontLoaded ? <Home /> : null}
-        </SafeAreaView>
-      </SafeAreaProvider>
-    </ImageBackground>
-  )
+  if (isFontLoaded) {
+    return (
+      <ImageBackground
+        source={BackgroundImg}
+        style={s.img_background}
+        imageStyle={s.img}
+      >
+        <SafeAreaProvider>
+          <SafeAreaView style={s.appContainer}>
+            {isFontLoaded ? <Home /> : null}
+          </SafeAreaView>
+        </SafeAreaProvider>
+      </ImageBackground>
+    )
+  }
 }
