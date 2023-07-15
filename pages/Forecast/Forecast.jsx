@@ -4,6 +4,8 @@ import Txt from '../../components/Txt/Txt'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { TouchableOpacity, View } from 'react-native'
 import ForecastListItem from '../../components/ForecastListItem/ForecastListItem'
+import { getWeatherInterpretation } from '../../services/meteo-services'
+import { DAYS, dateToDDMM } from '../../services/date-services'
 
 export default function Forecast() {
   const { params } = useRoute()
@@ -22,17 +24,23 @@ export default function Forecast() {
       </View>
     </View>
   )
+
+  const  forecastList = (
+    <View style={s.forecastList}>
+ {params.time.map((time, index) => {
+    const code = params.weathercode[index]
+    const image = getWeatherInterpretation(code).image
+    const date = new Date(time)
+    const day = DAYS[date.getDay()]
+    const temperature = params.temperature_2m_max[index]
+
+    return <ForecastListItem key={time} image={image} day={day} date={dateToDDMM(date)} temperature={temperature.toFixed(0)}/>
+ })}
+    </View>
+  )
   return <>
   {header}
-  <View style={{marginTop:50}}>  
-    <ForecastListItem image={require("../../assets/meteo_img/thunder.png")} day={"LUN"} date={"03/03/2023"} temperature={14}/>
-    <ForecastListItem image={require("../../assets/meteo_img/thunder.png")} day={"LUN"} date={"03/03/2023"} temperature={14}/>
-    <ForecastListItem image={require("../../assets/meteo_img/thunder.png")} day={"LUN"} date={"03/03/2023"} temperature={14}/>
-    <ForecastListItem image={require("../../assets/meteo_img/thunder.png")} day={"LUN"} date={"03/03/2023"} temperature={14}/>
-    <ForecastListItem image={require("../../assets/meteo_img/thunder.png")} day={"LUN"} date={"03/03/2023"} temperature={14}/>
-    <ForecastListItem image={require("../../assets/meteo_img/thunder.png")} day={"LUN"} date={"03/03/2023"} temperature={14}/>
-    <ForecastListItem image={require("../../assets/meteo_img/thunder.png")} day={"LUN"} date={"03/03/2023"} temperature={14}/>
-  </View>
+  {forecastList}
   
   </>
 }

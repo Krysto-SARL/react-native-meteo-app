@@ -15,5 +15,8 @@ const s = StyleSheet.create({
     alignItems: 'center',
     marginRight: 30,
   },
+  forecastList: {
+    marginTop: 50,
+  },
 })
 export { s }
