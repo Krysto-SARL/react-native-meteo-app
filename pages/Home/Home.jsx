@@ -7,6 +7,7 @@ import {
   getCurrentPositionAsync,
 } from 'expo-location'
 import { meteoAPI  } from '../../api/meteo'
+import Txt from '../../components/Txt/Txt'
 
 
 export default function Home() {
@@ -51,7 +52,7 @@ export default function Home() {
   return (
     <>
       <View style={s.meteo_basic}>
-        <Text>Home</Text>
+        <Txt style={{fontSize: 60 }}>Home</Txt>
       </View>
       <View style={s.searchBar_container}>
         <Text>SearchBar</Text>
