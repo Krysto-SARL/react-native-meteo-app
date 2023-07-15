@@ -8,13 +8,15 @@ export class meteoAPI {
       )
     ).data
   }
-}
-export class krystoAPI {
-  static async fetchKrystoAPI() {
-    return (
+
+  static async fetchCityFromCoords(coords) {
+    const {
+      address: { city, village, town },
+    } = (
       await axios.get(
-        `http://175.158.174.65:8080/api/v1/customers/639a3664e5fc335f796a4920`,
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords.lat}&lon=${coords.lng}`,
       )
     ).data
+    return city || village || town
   }
 }

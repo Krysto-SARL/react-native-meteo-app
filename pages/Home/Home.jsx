@@ -10,10 +10,12 @@ import { meteoAPI } from '../../api/meteo'
 import Txt from '../../components/Txt/Txt'
 import MeteoBasic from '../../components/MeteoBasic/MeteoBasic'
 import { getWeatherInterpretation } from '../../services/meteo-services'
+import MeteoAdvanced from '../../components/MeteoAdvanced/MeteoAdvanced'
 
 export default function Home() {
   const [coords, setCoords] = useState()
   const [weather, setWeather] = useState()
+  const [city, setCity] = useState()
   const currentWeather = weather?.current_weather
 
   useEffect(() => {
@@ -23,6 +25,7 @@ export default function Home() {
   useEffect(() => {
     if (coords) {
       fetchWeather(coords)
+      fetchCity(coords)
     }
   }, [coords])
 
@@ -45,20 +48,26 @@ export default function Home() {
     setWeather(weatherResponse)
   }
 
-  console.log(weather)
+  async function fetchCity(coordinates) {
+    const cityResponse = await meteoAPI.fetchCityFromCoords(coordinates)
+    setCity(cityResponse)
+  }
 
-  return (
-    currentWeather ?
+  return currentWeather ? (
     <>
       <View style={s.meteo_basic}>
-        <MeteoBasic interpretation={getWeatherInterpretation(currentWeather.weathercode)} city={"Nouméa"} temperature={Math.round(currentWeather?.temperature)} />
+        <MeteoBasic
+          interpretation={getWeatherInterpretation(currentWeather.weathercode)}
+          city={city}
+          temperature={Math.round(currentWeather?.temperature)}
+        />
       </View>
       <View style={s.searchBar_container}>
         <Txt>SearchBar</Txt>
       </View>
       <View style={s.meteo_advanced}>
-        <Txt>meteo advanced</Txt>
+       <MeteoAdvanced wind={currentWeather.windspeed} dusk={weather.daily.sunrise[0].split("T")[1]} dawn={weather.daily.sunset[0].split("T")[1]}/>
       </View>
-    </> : null
-  )
+    </>
+  ) : null
 }

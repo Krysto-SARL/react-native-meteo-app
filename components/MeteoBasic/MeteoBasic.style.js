@@ -3,11 +3,12 @@ import { StyleSheet } from 'react-native'
 const s = StyleSheet.create({
   clock: {
     alignItems: 'flex-end',
+    marginTop: 10,
   },
   weather: {
     alignSelf: 'flex-end',
     transform: [{ rotate: '-90deg' }],
-    fontSize: 20,
+    fontSize: 18,
   },
   image: {
     height: 90,
