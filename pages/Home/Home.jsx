@@ -11,11 +11,15 @@ import Txt from '../../components/Txt/Txt'
 import MeteoBasic from '../../components/MeteoBasic/MeteoBasic'
 import { getWeatherInterpretation } from '../../services/meteo-services'
 import MeteoAdvanced from '../../components/MeteoAdvanced/MeteoAdvanced'
+import {useNavigation} from "@react-navigation/native"
+
+
 
 export default function Home() {
   const [coords, setCoords] = useState()
   const [weather, setWeather] = useState()
   const [city, setCity] = useState()
+  const nav = useNavigation()
   const currentWeather = weather?.current_weather
 
   useEffect(() => {
@@ -53,6 +57,10 @@ export default function Home() {
     setCity(cityResponse)
   }
 
+  function goToForecastPage(){
+    nav.navigate("Forecast", {city, ...weather.daily})
+  }
+
   return currentWeather ? (
     <>
       <View style={s.meteo_basic}>
@@ -60,6 +68,7 @@ export default function Home() {
           interpretation={getWeatherInterpretation(currentWeather.weathercode)}
           city={city}
           temperature={Math.round(currentWeather?.temperature)}
+          onPress={goToForecastPage}
         />
       </View>
       <View style={s.searchBar_container}>

@@ -1,14 +1,16 @@
-
 import { s } from './Forecast.style'
 
-import MeteoAdvanced from '../../components/MeteoAdvanced/MeteoAdvanced'
 import Txt from '../../components/Txt/Txt'
+import { useRoute } from '@react-navigation/native'
 
 export default function Forecast() {
 
-  return  (
+   const {params} =  useRoute()
+
+   console.log(params);
+  return (
     <>
-     <Txt>Forecast</Txt>
+      <Txt>Forecast</Txt>
     </>
-  ) 
+  )
 }

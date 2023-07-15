@@ -22,7 +22,11 @@ export default function App() {
     'Alata-regular': AlataRegular,
   })
 
-  return isFontLoaded ? (
+  if (!isFontLoaded) {
+    return null
+  }
+
+  return (
     <NavigationContainer theme={navTheme}>
       <ImageBackground
         source={BackgroundImg}
@@ -33,7 +37,7 @@ export default function App() {
           <SafeAreaView style={s.appContainer}>
             {
               <Stack.Navigator
-                screenOptions={{ headerShown: false }}
+                screenOptions={{ headerShown: false, animation: 'fade' }}
                 initialRouteName="Home"
               >
                 <Stack.Screen name="Home" component={Home} />
@@ -44,5 +48,5 @@ export default function App() {
         </SafeAreaProvider>
       </ImageBackground>
     </NavigationContainer>
-  ) : null
+  )
 }
